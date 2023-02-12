@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, StyleSheet } from "react-native";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
@@ -7,13 +7,24 @@ export default function Update(props) {
     const navigation = props.navigation;
     const route = props.route;
     const data = route.params?.data || null;
-    const [name, setName] = useState(data.name);
-    const [address, setAddress] = useState(data.address);
-    const [phone, setPhone] = useState(data.phone);
-    const [logo, setLogo] = useState(data.logo);
-    const [status, setStatus] = useState(data.status);
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [logo, setLogo] = useState('');
+    const [status, setStatus] = useState('');
 
-    console.log("data: " + data.name);
+    // console.log("data: " + data.name);
+
+    useEffect(() => {
+        if(data != null){
+            setName(data.name);
+            setAddress(data.address);
+            setPhone(data.phone);
+            setLogo(data.logo);
+            setStatus(data.status);
+        }
+    
+    },[data]);
 
     const onReset = () => {
         setName('');
@@ -44,14 +55,14 @@ export default function Update(props) {
                     placeholder="Name"
                     onChangeText={(text) => setName(text)}
                     placeholderTextColor={'gray'}
-                    defaultValue={data.name}
+                    defaultValue={name}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Address"
                     onChangeText={(text) => setAddress(text)}
                     placeholderTextColor={'gray'}
-                    defaultValue={data.address}
+                    defaultValue={address}
 
                 />
                 <TextInput
@@ -60,7 +71,7 @@ export default function Update(props) {
                     onChangeText={(text) => setPhone(text)}
                     keyboardType='phone-pad'
                     placeholderTextColor={'gray'}
-                    defaultValue={data.phone}
+                    defaultValue={phone}
 
                 />
                 <TextInput
@@ -69,14 +80,14 @@ export default function Update(props) {
                     onChangeText={(text) => setLogo(text)}
                     keyboardType="url"
                     placeholderTextColor={'gray'}
-                    defaultValue={data.logo}
+                    defaultValue={logo}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Status 0 or 1"
                     onChangeText={(text) => setStatus(text)}
                     placeholderTextColor={'gray'}
-                    defaultValue={data.status}
+                    defaultValue={status}
                 />
                 <View style={{ flexDirection: "row", justifyContent: 'space-around' }}>
                     <TouchableOpacity onPress={() => onReset()}>

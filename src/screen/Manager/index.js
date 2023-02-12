@@ -32,7 +32,6 @@ export default function ManagerScreen(props) {
             const newList = data.map(item => {
                 if (item.id === route.params?.editItem.id) {
                     item = route.params?.editItem;
-                    console.log(item);
                 }
                 return item;
             });
